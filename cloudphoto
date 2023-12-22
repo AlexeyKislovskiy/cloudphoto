@@ -1,0 +1,82 @@
+#!/usr/bin/env python
+
+import click
+import init_command
+import upload_command
+import download_command
+import list_command
+import delete_command
+import mksite_command
+
+
+@click.group()
+def cli():
+    pass
+
+
+@cli.command()
+@click.option('--album', default='', help='Название альбома, обязательная опция')
+@click.option('--path', default='.', help='Путь к каталогу с фотографиями')
+def upload(album, path):
+    """
+    Функция для отправки фотографий в облачное хранилище. Загружает фотографии в указанный альбом
+    из указанного каталога. Если опция --path не задана, то используется текущий каталог.
+    """
+    upload_command.run(album, path)
+
+
+@cli.command()
+@click.option('--album', default='', help='Название альбома, обязательная опция')
+@click.option('--path', default='.', help='Путь к каталогу для загрузки фотографий')
+def download(album, path):
+    """
+    Функция для загрузки фотографий из облачного хранилища. Загружает фотографии из указанного альбома
+    в указанный каталог. Если опция --path не задана, то используется текущий каталог.
+    """
+    download_command.run(album, path)
+
+
+@cli.command()
+@click.option('--album', default='', help='Название альбома')
+def list(album):
+    """
+    Функция для просмотра списка альбомов и фотографий в облачном хранилище. Если опция --album не задана,
+    то выводит список всех альбомов, если задана — выводит список всех фотографий в указанном альбоме.
+    """
+    list_command.run(album)
+
+
+@cli.command()
+@click.option('--album', default='', help='Название альбома, обязательная опция')
+@click.option('--photo', default='', help='Имя фотографии')
+def delete(album, photo):
+    """
+    Функция для удаления альбомов и фотографий в облачном хранилище. Если опция --photo не задана,
+    то удаляет указанный альбом и все фотографии в нем, если задана — удаляет указанную фотографию.
+    """
+    delete_command.run(album, photo)
+
+
+@cli.command()
+def mksite():
+    """
+    Функция для создания веб-страниц фотоархива и их публикации.
+    """
+    mksite_command.run()
+
+
+@cli.command()
+def init():
+    """
+    Функция для инициализации программы. В интерактивном режиме запрашивает у пользователя
+    необходимые параметры: AWS access key ID, AWS secret access key и имя бакета.
+    Сохраняет конфигурационный файл в домашнем каталоге пользователя по пути
+    .config/cloudphoto/cloudphotorc и создает бакет с указанным именем, если он не существует.
+    Без наличия конфигурационного файла и заполненности всех параметров в нем запуск других
+    функций приведет к ошибке.
+    """
+    init_command.run()
+
+
+if __name__ == '__main__':
+    cli()
