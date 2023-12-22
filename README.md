@@ -8,3 +8,12 @@
  ```
 cloudphoto COMMAND [OPTIONS]...
 ```
+В программе содержатся 3 директории с изображениями для быстрого теста программы:
+```
+cloudphoto init
+cloudphoto upload --album fruits --path fruits
+cloudphoto upload --album fruits --path fruits
+cloudphoto upload --album vegetables --path vegetables
+cloudphoto upload --album berries --path berries
+cloudphoto mksite
+```
