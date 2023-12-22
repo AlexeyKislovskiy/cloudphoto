@@ -12,7 +12,6 @@ cloudphoto COMMAND [OPTIONS]...
 ```
 cloudphoto init
 cloudphoto upload --album fruits --path fruits
-cloudphoto upload --album fruits --path fruits
 cloudphoto upload --album vegetables --path vegetables
 cloudphoto upload --album berries --path berries
 cloudphoto mksite
